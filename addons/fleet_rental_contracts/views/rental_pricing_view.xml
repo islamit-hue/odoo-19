@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== Rental Pricing Views ==================== -->
+    <record id="view_rental_pricing_list" model="ir.ui.view">
+        <field name="name">rental.pricing.list</field>
+        <field name="model">rental.pricing</field>
+        <field name="arch" type="xml">
+            <list string="Pricing Plans">
+                <field name="name"/>
+                <field name="branch_id"/>
+                <field name="vehicle_category"/>
+                <field name="vehicle_model"/>
+                <field name="period_type"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="allowed_km"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_pricing_form" model="ir.ui.view">
+        <field name="name">rental.pricing.form</field>
+        <field name="model">rental.pricing</field>
+        <field name="arch" type="xml">
+            <form string="Pricing Plan">
+                <sheet>
+                    <group>
+                        <group string="Plan Identification">
+                            <field name="name"/>
+                            <field name="period_type"/>
+                            <field name="currency_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Scope">
+                            <field name="branch_id"/>
+                            <field name="vehicle_category"/>
+                            <field name="vehicle_model"/>
+                            <field name="manufacture_year"/>
+                            <field name="vehicle_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <group string="Base Pricing">
+                        <group>
+                            <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="allowed_km"/>
+                            <field name="allowed_hours"/>
+                        </group>
+                        <group>
+                            <field name="extra_km_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="extra_hour_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="open_km_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <group string="Additional Charges">
+                        <group>
+                            <field name="insurance_comprehensive_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="insurance_comprehensive_no_deductible" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="deductible_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="delivery_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="extra_driver_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_pricing" model="ir.actions.act_window">
+        <field name="name">Pricing Plans</field>
+        <field name="res_model">rental.pricing</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

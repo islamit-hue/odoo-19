@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== Main Menu ==================== -->
+    <menuitem id="menu_rental_root"
+        name="Car Rental"
+        sequence="50"
+        web_icon="fleet_rental_contracts,static/description/icon.png"/>
+
+    <!-- Rentals -->
+    <menuitem id="menu_rental_operations"
+        name="Rentals"
+        parent="menu_rental_root"
+        sequence="10"/>
+
+    <menuitem id="menu_rental_contracts"
+        name="Active Contracts"
+        parent="menu_rental_operations"
+        action="action_rental_contract"
+        sequence="10"/>
+
+    <menuitem id="menu_rental_contracts_all"
+        name="All Contracts"
+        parent="menu_rental_operations"
+        action="action_rental_contract_all"
+        sequence="20"/>
+
+    <menuitem id="menu_rental_violations"
+        name="Violations"
+        parent="menu_rental_operations"
+        action="action_rental_violation_list"
+        sequence="30"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_rental_config"
+        name="Configuration"
+        parent="menu_rental_root"
+        sequence="90"/>
+
+    <menuitem id="menu_rental_branches"
+        name="Branches"
+        parent="menu_rental_config"
+        action="action_rental_branch"
+        sequence="10"/>
+
+    <menuitem id="menu_rental_pricing"
+        name="Pricing Plans"
+        parent="menu_rental_config"
+        action="action_rental_pricing"
+        sequence="20"/>
+
+    <menuitem id="menu_rental_checklist_items"
+        name="Checklist Items"
+        parent="menu_rental_config"
+        action="action_rental_checklist_item"
+        sequence="30"/>
+</odoo>
