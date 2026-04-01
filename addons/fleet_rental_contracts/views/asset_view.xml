@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Damage Form View (used as a dialog from contract) -->
+    <record id="view_fleet_rental_damage_form" model="ir.ui.view">
+        <field name="name">fleet.rental.damage.form</field>
+        <field name="model">fleet.rental.damage</field>
+        <field name="arch" type="xml">
+            <form string="Damage Record">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="damage_type"/>
+                            <field name="location"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="photo" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Damage List View (standalone) -->
+    <record id="view_fleet_rental_damage_list" model="ir.ui.view">
+        <field name="name">fleet.rental.damage.list</field>
+        <field name="model">fleet.rental.damage</field>
+        <field name="arch" type="xml">
+            <list string="Damages">
+                <field name="contract_id"/>
+                <field name="name"/>
+                <field name="damage_type"/>
+                <field name="location"/>
+                <field name="date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Damage Action -->
+    <record id="action_fleet_rental_damage" model="ir.actions.act_window">
+        <field name="name">Damage Records</field>
+        <field name="res_model">fleet.rental.damage</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No damage records found
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_fleet_rental_damage"
+        name="Damages"
+        parent="menu_fleet_rental_root"
+        action="action_fleet_rental_damage"
+        sequence="20"/>
+
+</odoo>

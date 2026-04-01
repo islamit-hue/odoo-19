@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Rental Contract Report Template -->
+    <template id="report_rental_contract_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <div class="page">
+                <h2>Rental Contract</h2>
+                <div class="row mt32 mb32">
+                    <div class="col-6">
+                        <strong>Contract Reference:</strong>
+                        <span t-field="doc.name"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Status:</strong>
+                        <span t-field="doc.state"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <h4>Customer Information</h4>
+                        <div><strong>Customer: </strong><span t-field="doc.partner_id"/></div>
+                        <div t-if="doc.driver_name">
+                            <strong>Driver: </strong><span t-field="doc.driver_name"/>
+                        </div>
+                        <div t-if="doc.driver_license">
+                            <strong>License No.: </strong><span t-field="doc.driver_license"/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4>Rental Details</h4>
+                        <div><strong>Vehicle: </strong><span t-field="doc.vehicle_id"/></div>
+                        <div t-if="doc.branch_id">
+                            <strong>Branch: </strong><span t-field="doc.branch_id"/>
+                        </div>
+                        <div><strong>Start Date: </strong><span t-field="doc.date_start"/></div>
+                        <div><strong>End Date: </strong><span t-field="doc.date_end"/></div>
+                    </div>
+                </div>
+
+                <t t-if="doc.checklist_ids">
+                    <h4 class="mt32">Checkout Checklist</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Checked</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.checklist_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.name"/></td>
+                                    <td>
+                                        <span t-if="line.checked">&#10003;</span>
+                                        <span t-else="">&#10007;</span>
+                                    </td>
+                                    <td><span t-field="line.notes"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <t t-if="doc.checkin_checklist_ids">
+                    <h4 class="mt32">Checkin Checklist</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Checked</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.checkin_checklist_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.name"/></td>
+                                    <td>
+                                        <span t-if="line.checked">&#10003;</span>
+                                        <span t-else="">&#10007;</span>
+                                    </td>
+                                    <td><span t-field="line.notes"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <t t-if="doc.damage_ids">
+                    <h4 class="mt32">Damage Records</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.damage_ids" t-as="dmg">
+                                <tr>
+                                    <td><span t-field="dmg.name"/></td>
+                                    <td><span t-field="dmg.damage_type"/></td>
+                                    <td><span t-field="dmg.location"/></td>
+                                    <td><span t-field="dmg.date"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <t t-if="doc.notes">
+                    <h4 class="mt32">Notes</h4>
+                    <p t-field="doc.notes"/>
+                </t>
+
+                <div class="row mt64">
+                    <div class="col-6 text-center">
+                        <div style="border-top: 1px solid black; width: 60%; margin: auto;">
+                            Customer Signature
+                        </div>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div style="border-top: 1px solid black; width: 60%; margin: auto;">
+                            Company Representative
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Rental Contract Report Action -->
+    <record id="action_report_rental_contract" model="ir.actions.report">
+        <field name="name">Rental Contract</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_rental_contracts.report_rental_contract_document</field>
+        <field name="report_file">fleet_rental_contracts.report_rental_contract_document</field>
+        <field name="binding_model_id" ref="model_fleet_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
