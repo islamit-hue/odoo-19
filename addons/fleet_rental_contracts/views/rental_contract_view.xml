@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Rental Contract Form View -->
+    <record id="view_fleet_rental_contract_form" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.form</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <form string="Rental Contract">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object"
+                        class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_start" string="Start Rental" type="object"
+                        class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_done" string="Mark as Done" type="object"
+                        class="btn-primary" invisible="state != 'ongoing'"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                        invisible="state in ('done', 'cancelled')"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object"
+                        invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,confirmed,ongoing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Customer Information">
+                            <field name="partner_id"/>
+                            <field name="driver_name"/>
+                            <field name="driver_license"/>
+                        </group>
+                        <group string="Rental Details">
+                            <field name="vehicle_id"/>
+                            <field name="branch_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Checkout Checklist">
+                            <field name="checklist_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="checked"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Checkin Checklist">
+                            <field name="checkin_checklist_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="checked"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Damages">
+                            <field name="damage_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="damage_type"/>
+                                    <field name="location"/>
+                                    <field name="date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Rental Contract List View -->
+    <record id="view_fleet_rental_contract_list" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.list</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <list string="Rental Contracts" decoration-info="state == 'draft'"
+                  decoration-success="state == 'ongoing'" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <field name="branch_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state" widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-warning="state == 'confirmed'"
+                    decoration-success="state in ('ongoing', 'done')"
+                    decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Rental Contract Search View -->
+    <record id="view_fleet_rental_contract_search" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.search</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <search string="Search Rental Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Ongoing" name="ongoing" domain="[('state', '=', 'ongoing')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
+                    <filter string="Branch" name="group_branch" context="{'group_by': 'branch_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Rental Contract Action -->
+    <record id="action_fleet_rental_contract" model="ir.actions.act_window">
+        <field name="name">Rental Contracts</field>
+        <field name="res_model">fleet.rental.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_fleet_rental_contract_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first rental contract
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_fleet_rental_root"
+        name="Fleet Rental"
+        sequence="90"
+        web_icon="fleet_rental_contracts,static/description/icon.png"/>
+
+    <menuitem id="menu_fleet_rental_contracts"
+        name="Contracts"
+        parent="menu_fleet_rental_root"
+        action="action_fleet_rental_contract"
+        sequence="10"/>
+
+</odoo>
