@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== Fleet Asset (Vehicle) Views ==================== -->
+    <record id="view_fleet_vehicle_rental_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.rental.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <div class="oe_button_box" name="rental_button_box">
+                    <button name="action_view_rental_contracts" type="object"
+                        class="oe_stat_button" icon="fa-file-text-o">
+                        <field name="rental_contract_count" widget="statinfo" string="Rentals"/>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='other']" position="inside">
+                <field name="branch_id"/>
+                <field name="vehicle_status"/>
+                <field name="fuel_type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_fleet_vehicle_insurance_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.insurance.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Insurance" name="insurance_page">
+                    <group>
+                        <group>
+                            <field name="insurance_company"/>
+                            <field name="insurance_policy_number"/>
+                        </group>
+                        <group>
+                            <field name="insurance_type"/>
+                            <field name="insurance_expiry_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

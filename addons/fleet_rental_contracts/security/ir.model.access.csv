@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rental_contract_user,rental.contract user,model_rental_contract,base.group_user,1,1,1,0
+access_rental_contract_manager,rental.contract manager,model_rental_contract,base.group_system,1,1,1,1
+access_rental_branch_user,rental.branch user,model_rental_branch,base.group_user,1,0,0,0
+access_rental_branch_manager,rental.branch manager,model_rental_branch,base.group_system,1,1,1,1
+access_rental_pricing_user,rental.pricing user,model_rental_pricing,base.group_user,1,0,0,0
+access_rental_pricing_manager,rental.pricing manager,model_rental_pricing,base.group_system,1,1,1,1
+access_rental_checklist_item_user,rental.checklist.item user,model_rental_checklist_item,base.group_user,1,0,0,0
+access_rental_checklist_item_manager,rental.checklist.item manager,model_rental_checklist_item,base.group_system,1,1,1,1
+access_rental_contract_checklist_user,rental.contract.checklist user,model_rental_contract_checklist,base.group_user,1,1,1,0
+access_rental_contract_checklist_manager,rental.contract.checklist manager,model_rental_contract_checklist,base.group_system,1,1,1,1
+access_rental_violation_user,rental.violation user,model_rental_violation,base.group_user,1,1,1,0
+access_rental_violation_manager,rental.violation manager,model_rental_violation,base.group_system,1,1,1,1

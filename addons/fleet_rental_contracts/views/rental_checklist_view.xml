@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== Checklist Item Views ==================== -->
+    <record id="view_checklist_item_list" model="ir.ui.view">
+        <field name="name">rental.checklist.item.list</field>
+        <field name="model">rental.checklist.item</field>
+        <field name="arch" type="xml">
+            <list string="Checklist Items" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_rental_checklist_item" model="ir.actions.act_window">
+        <field name="name">Checklist Items</field>
+        <field name="res_model">rental.checklist.item</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- ==================== Violation Views ==================== -->
+    <record id="view_rental_violation_list" model="ir.ui.view">
+        <field name="name">rental.violation.list</field>
+        <field name="model">rental.violation</field>
+        <field name="arch" type="xml">
+            <list string="Violations">
+                <field name="name"/>
+                <field name="violation_type"/>
+                <field name="contract_id"/>
+                <field name="vehicle_id"/>
+                <field name="partner_id"/>
+                <field name="violation_date"/>
+                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_violation_form" model="ir.ui.view">
+        <field name="name">rental.violation.form</field>
+        <field name="model">rental.violation</field>
+        <field name="arch" type="xml">
+            <form string="Violation">
+                <header>
+                    <button name="%(action_rental_violation_list)d" string="Back" type="action"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="pending,charged,waived"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="violation_type"/>
+                            <field name="violation_date"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="contract_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="partner_id"/>
+                            <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_violation_list" model="ir.actions.act_window">
+        <field name="name">Violations</field>
+        <field name="res_model">rental.violation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rental_contract_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="row">
+                    <div class="col-6">
+                        <h2>
+                            <span>Rental Contract</span>
+                        </h2>
+                    </div>
+                    <div class="col-6 text-end">
+                        <h4>
+                            <t t-esc="o.name"/>
+                        </h4>
+                        <span t-field="o.state"/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <strong>Customer:</strong>
+                        <span t-field="o.partner_id.name"/><br/>
+                        <strong>Customer Type:</strong>
+                        <span t-field="o.partner_type"/><br/>
+                        <strong>Branch:</strong>
+                        <span t-field="o.branch_id.name"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>Vehicle:</strong>
+                        <span t-field="o.vehicle_id.name"/><br/>
+                        <strong>Pricing Plan:</strong>
+                        <span t-field="o.pricing_id.name"/><br/>
+                        <strong>Insurance:</strong>
+                        <span t-field="o.insurance_type"/>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <strong>Start Date:</strong>
+                        <span t-field="o.start_date"/><br/>
+                        <strong>Expected Return:</strong>
+                        <span t-field="o.end_date"/>
+                    </div>
+                    <div class="col-6">
+                        <strong>KM at Start:</strong>
+                        <span t-field="o.km_start"/> km<br/>
+                        <strong>Allowed KM:</strong>
+                        <span t-field="o.allowed_km"/> km
+                    </div>
+                </div>
+                <hr/>
+                <h5>Financial Summary</h5>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Base Rental Amount</td>
+                            <td class="text-end">
+                                <span t-field="o.base_amount"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.insurance_charge">
+                            <td>Insurance</td>
+                            <td class="text-end">
+                                <span t-field="o.insurance_charge"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.delivery_charge">
+                            <td>Delivery</td>
+                            <td class="text-end">
+                                <span t-field="o.delivery_charge"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.extra_km_charge">
+                            <td>Extra KM (<span t-esc="o.extra_km"/> km)</td>
+                            <td class="text-end">
+                                <span t-field="o.extra_km_charge"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.extra_driver_charge">
+                            <td>Extra Driver</td>
+                            <td class="text-end">
+                                <span t-field="o.extra_driver_charge"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.deductible_charge">
+                            <td>Deductible</td>
+                            <td class="text-end">
+                                <span t-field="o.deductible_charge"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.inter_branch_delivery_fee">
+                            <td>Inter-Branch Delivery Fee</td>
+                            <td class="text-end">
+                                <span t-field="o.inter_branch_delivery_fee"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr class="fw-bold">
+                            <td>Total</td>
+                            <td class="text-end">
+                                <span t-field="o.total_amount"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Security Deposit</td>
+                            <td class="text-end">
+                                <span t-field="o.deposit_amount"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Amount Paid</td>
+                            <td class="text-end">
+                                <span t-field="o.amount_paid"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr class="fw-bold text-danger" t-if="o.amount_due > 0">
+                            <td>Amount Due</td>
+                            <td class="text-end">
+                                <span t-field="o.amount_due"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Check-Out Checklist -->
+                <t t-if="o.checkout_checklist_ids">
+                    <h5 class="mt-4">Check-Out Checklist</h5>
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Condition</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.checkout_checklist_ids" t-as="line">
+                                <tr>
+                                    <td><span t-field="line.item_id.name"/></td>
+                                    <td><span t-field="line.item_id.category"/></td>
+                                    <td><span t-field="line.condition"/></td>
+                                    <td><span t-field="line.notes"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+
+                <!-- Signature section -->
+                <div class="row mt-5">
+                    <div class="col-6 text-center">
+                        <p>____________________________</p>
+                        <p>Customer Signature</p>
+                    </div>
+                    <div class="col-6 text-center">
+                        <p>____________________________</p>
+                        <p>Company Representative</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="report_rental_contract" model="ir.actions.report">
+        <field name="name">Rental Contract</field>
+        <field name="model">rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_rental_contracts.report_rental_contract_document</field>
+        <field name="report_file">fleet_rental_contracts.report_rental_contract_document</field>
+        <field name="print_report_name">'Rental Contract - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

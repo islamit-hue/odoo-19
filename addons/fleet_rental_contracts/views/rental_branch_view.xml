@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================== Rental Branch Views ==================== -->
+    <record id="view_rental_branch_list" model="ir.ui.view">
+        <field name="name">rental.branch.list</field>
+        <field name="model">rental.branch</field>
+        <field name="arch" type="xml">
+            <list string="Branches">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="city"/>
+                <field name="phone"/>
+                <field name="manager_id"/>
+                <field name="contract_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rental_branch_form" model="ir.ui.view">
+        <field name="name">rental.branch.form</field>
+        <field name="model">rental.branch</field>
+        <field name="arch" type="xml">
+            <form string="Rental Branch">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_contracts" type="object"
+                            class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="contract_count" widget="statinfo" string="Contracts"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="city"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                            <field name="manager_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Address">
+                        <field name="address" nolabel="1" colspan="2"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rental_branch" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">rental.branch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

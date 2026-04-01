@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contract sequence -->
+    <record id="seq_rental_contract" model="ir.sequence">
+        <field name="name">Rental Contract</field>
+        <field name="code">rental.contract</field>
+        <field name="prefix">RC/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Default checklist items -->
+    <record id="checklist_item_front_bumper" model="rental.checklist.item">
+        <field name="name">Front Bumper</field>
+        <field name="category">exterior</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="checklist_item_rear_bumper" model="rental.checklist.item">
+        <field name="name">Rear Bumper</field>
+        <field name="category">exterior</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="checklist_item_hood" model="rental.checklist.item">
+        <field name="name">Hood / Bonnet</field>
+        <field name="category">exterior</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="checklist_item_doors" model="rental.checklist.item">
+        <field name="name">All Doors</field>
+        <field name="category">exterior</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="checklist_item_windshield" model="rental.checklist.item">
+        <field name="name">Windshield</field>
+        <field name="category">exterior</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="checklist_item_tires" model="rental.checklist.item">
+        <field name="name">Tires &amp; Rims</field>
+        <field name="category">exterior</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="checklist_item_headlights" model="rental.checklist.item">
+        <field name="name">Headlights &amp; Taillights</field>
+        <field name="category">exterior</field>
+        <field name="sequence">70</field>
+    </record>
+    <record id="checklist_item_ac" model="rental.checklist.item">
+        <field name="name">Air Conditioning</field>
+        <field name="category">interior</field>
+        <field name="sequence">80</field>
+    </record>
+    <record id="checklist_item_seats" model="rental.checklist.item">
+        <field name="name">Seats &amp; Upholstery</field>
+        <field name="category">interior</field>
+        <field name="sequence">90</field>
+    </record>
+    <record id="checklist_item_dashboard" model="rental.checklist.item">
+        <field name="name">Dashboard &amp; Controls</field>
+        <field name="category">interior</field>
+        <field name="sequence">100</field>
+    </record>
+    <record id="checklist_item_spare_tire" model="rental.checklist.item">
+        <field name="name">Spare Tire</field>
+        <field name="category">accessories</field>
+        <field name="sequence">110</field>
+    </record>
+    <record id="checklist_item_car_jack" model="rental.checklist.item">
+        <field name="name">Car Jack &amp; Tools</field>
+        <field name="category">accessories</field>
+        <field name="sequence">120</field>
+    </record>
+    <record id="checklist_item_registration" model="rental.checklist.item">
+        <field name="name">Vehicle Registration</field>
+        <field name="category">documents</field>
+        <field name="sequence">130</field>
+    </record>
+    <record id="checklist_item_insurance_doc" model="rental.checklist.item">
+        <field name="name">Insurance Document</field>
+        <field name="category">documents</field>
+        <field name="sequence">140</field>
+    </record>
+    <record id="checklist_item_fuel" model="rental.checklist.item">
+        <field name="name">Fuel Level</field>
+        <field name="category">mechanical</field>
+        <field name="sequence">150</field>
+    </record>
+    <record id="checklist_item_brakes" model="rental.checklist.item">
+        <field name="name">Brakes</field>
+        <field name="category">mechanical</field>
+        <field name="sequence">160</field>
+    </record>
+</odoo>
