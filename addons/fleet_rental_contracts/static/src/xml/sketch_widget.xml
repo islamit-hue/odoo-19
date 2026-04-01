@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="fleet_rental_contracts.SketchPadField">
+        <div class="o_sketch_pad_field">
+            <div class="o_sketch_toolbar mb-2 d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-outline-secondary"
+                        t-att-class="state.tool === 'pen' ? 'active' : ''"
+                        t-on-click="() => setTool('pen')" title="Pen">✏️</button>
+                <button class="btn btn-sm btn-outline-secondary"
+                        t-att-class="state.tool === 'eraser' ? 'active' : ''"
+                        t-on-click="() => setTool('eraser')" title="Eraser">🧹</button>
+                <input type="color" t-att-value="state.color"
+                       t-on-change="onColorChange"
+                       class="form-control form-control-sm" style="width:40px; padding:2px;"
+                       title="Color"/>
+                <input type="range" min="1" max="20" t-att-value="state.lineWidth"
+                       t-on-change="onLineWidthChange"
+                       class="form-range" style="width:80px;" title="Line Width"/>
+                <button class="btn btn-sm btn-outline-danger" t-on-click="onClear">Clear</button>
+            </div>
+            <canvas t-ref="canvas" width="600" height="300"
+                    style="border:1px solid #ccc; cursor:crosshair; background:#fff; touch-action:none;"
+                    t-on-mousedown="onMouseDown"
+                    t-on-mousemove="onMouseMove"
+                    t-on-mouseup="onMouseUp"
+                    t-on-mouseleave="onMouseUp"
+                    t-on-touchstart="onMouseDown"
+                    t-on-touchmove="onMouseMove"
+                    t-on-touchend="onMouseUp"/>
+        </div>
+    </t>
+</templates>
