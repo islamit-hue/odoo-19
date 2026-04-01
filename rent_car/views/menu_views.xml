@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level Menu -->
+    <menuitem id="menu_rent_car_root"
+              name="Car Rental"
+              sequence="60"
+              web_icon="rent_car,static/description/icon.png"
+              groups="rent_car.group_rent_car_user"/>
+
+    <!-- Cars Sub-menu -->
+    <menuitem id="menu_rent_car_cars"
+              name="Cars"
+              parent="menu_rent_car_root"
+              sequence="10"
+              groups="rent_car.group_rent_car_user"/>
+
+    <menuitem id="menu_rent_car_car_list"
+              name="Fleet"
+              parent="menu_rent_car_cars"
+              sequence="10"
+              action="action_rent_car"
+              groups="rent_car.group_rent_car_user"/>
+
+    <!-- Rentals Sub-menu -->
+    <menuitem id="menu_rent_car_rentals"
+              name="Rentals"
+              parent="menu_rent_car_root"
+              sequence="20"
+              groups="rent_car.group_rent_car_user"/>
+
+    <menuitem id="menu_rent_car_order_list"
+              name="Rental Orders"
+              parent="menu_rent_car_rentals"
+              sequence="10"
+              action="action_rent_car_order"
+              groups="rent_car.group_rent_car_user"/>
+</odoo>

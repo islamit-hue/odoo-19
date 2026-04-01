@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Rental Order Form View -->
+    <record id="view_rent_car_order_form" model="ir.ui.view">
+        <field name="name">rent.car.order.form</field>
+        <field name="model">rent.car.order</field>
+        <field name="arch" type="xml">
+            <form string="Rental Order">
+                <header>
+                    <button name="action_confirm" string="Confirm"
+                            type="object" invisible="state != 'draft'"
+                            class="btn-primary"/>
+                    <button name="action_start" string="Start Rental"
+                            type="object" invisible="state != 'confirmed'"
+                            class="btn-success"/>
+                    <button name="action_done" string="Mark as Done"
+                            type="object" invisible="state != 'ongoing'"
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel"
+                            type="object"
+                            invisible="state in ('done', 'cancelled')"
+                            confirm="Are you sure you want to cancel this rental order?"
+                            class="btn-danger"/>
+                    <button name="action_reset_draft" string="Reset to Draft"
+                            type="object" invisible="state != 'cancelled'"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,ongoing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Rental Information">
+                            <field name="car_id"
+                                   readonly="state in ('ongoing', 'done', 'cancelled')"/>
+                            <field name="customer_id"
+                                   readonly="state in ('ongoing', 'done', 'cancelled')"/>
+                            <field name="date_from"
+                                   readonly="state in ('ongoing', 'done', 'cancelled')"/>
+                            <field name="date_to"
+                                   readonly="state in ('ongoing', 'done', 'cancelled')"/>
+                            <field name="duration"/>
+                        </group>
+                        <group string="Pricing">
+                            <field name="daily_rate" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_amount" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Enter any additional notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Rental Order List View -->
+    <record id="view_rent_car_order_list" model="ir.ui.view">
+        <field name="name">rent.car.order.list</field>
+        <field name="model">rent.car.order</field>
+        <field name="arch" type="xml">
+            <list string="Rental Orders"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'done'"
+                  decoration-info="state == 'ongoing'"
+                  decoration-warning="state == 'confirmed'">
+                <field name="name"/>
+                <field name="car_id"/>
+                <field name="customer_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="duration" string="Days"/>
+                <field name="daily_rate" widget="monetary"
+                       options="{'currency_field': 'currency_id'}"/>
+                <field name="total_amount" widget="monetary"
+                       options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-secondary="state == 'draft'"
+                       decoration-warning="state == 'confirmed'"
+                       decoration-info="state == 'ongoing'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Rental Order Kanban View -->
+    <record id="view_rent_car_order_kanban" model="ir.ui.view">
+        <field name="name">rent.car.order.kanban</field>
+        <field name="model">rent.car.order</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="car_id"/>
+                <field name="customer_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="total_amount"/>
+                <field name="currency_id"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="fw-bold mb-1">
+                                <field name="name"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-car me-1"/>
+                                <field name="car_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-user me-1"/>
+                                <field name="customer_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="date_from"/> →
+                                <field name="date_to"/>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <strong>
+                                    <field name="total_amount" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </strong>
+                                <field name="state" widget="badge"
+                                       decoration-secondary="state == 'draft'"
+                                       decoration-warning="state == 'confirmed'"
+                                       decoration-info="state == 'ongoing'"
+                                       decoration-success="state == 'done'"
+                                       decoration-danger="state == 'cancelled'"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Rental Order Search View -->
+    <record id="view_rent_car_order_search" model="ir.ui.view">
+        <field name="name">rent.car.order.search</field>
+        <field name="model">rent.car.order</field>
+        <field name="arch" type="xml">
+            <search string="Rental Orders">
+                <field name="name" string="Order Reference"/>
+                <field name="car_id"/>
+                <field name="customer_id"/>
+                <separator/>
+                <filter string="Draft" name="draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Ongoing" name="ongoing"
+                        domain="[('state', '=', 'ongoing')]"/>
+                <filter string="Done" name="done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter string="Cancelled" name="cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Today" name="today"
+                        domain="[('date_from', '&lt;=', context_today().strftime('%Y-%m-%d')),
+                                 ('date_to', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Car" name="group_by_car"
+                            context="{'group_by': 'car_id'}"/>
+                    <filter string="Customer" name="group_by_customer"
+                            context="{'group_by': 'customer_id'}"/>
+                    <filter string="Status" name="group_by_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Start Date" name="group_by_date_from"
+                            context="{'group_by': 'date_from:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Rental Order Action -->
+    <record id="action_rent_car_order" model="ir.actions.act_window">
+        <field name="name">Rental Orders</field>
+        <field name="res_model">rent.car.order</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first rental order!
+            </p>
+            <p>
+                Track and manage all car rental orders here.
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rent_car_user,rent.car user,model_rent_car,rent_car.group_rent_car_user,1,0,0,0
+access_rent_car_manager,rent.car manager,model_rent_car,rent_car.group_rent_car_manager,1,1,1,1
+access_rent_car_order_user,rent.car.order user,model_rent_car_order,rent_car.group_rent_car_user,1,1,1,0
+access_rent_car_order_manager,rent.car.order manager,model_rent_car_order,rent_car.group_rent_car_manager,1,1,1,1
