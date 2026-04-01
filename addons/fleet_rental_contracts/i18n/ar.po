@@ -1,0 +1,426 @@
+# Arabic translation for Fleet Rental Contracts
+# Copyright (C) 2024
+# This file is distributed under the same license as the Fleet Rental Contracts package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Fleet Rental Contracts 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: 2024-01-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: fleet_rental_contracts
+#: model:ir.model,name:fleet_rental_contracts.model_fleet_rental_contract
+msgid "Fleet Rental Contract"
+msgstr "عقد تأجير السيارات"
+
+#. module: fleet_rental_contracts
+#: model:ir.model,name:fleet_rental_contracts.model_fleet_rental_branch
+msgid "Rental Branch"
+msgstr "فرع التأجير"
+
+#. module: fleet_rental_contracts
+#: model:ir.model,name:fleet_rental_contracts.model_fleet_rental_checklist
+msgid "Rental Contract Checklist"
+msgstr "قائمة فحص عقد الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.model,name:fleet_rental_contracts.model_fleet_rental_damage
+msgid "Rental Contract Damage"
+msgstr "أضرار عقد الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.ui.menu,name:fleet_rental_contracts.menu_fleet_rental_root
+msgid "Fleet Rental"
+msgstr "تأجير السيارات"
+
+#. module: fleet_rental_contracts
+#: model:ir.ui.menu,name:fleet_rental_contracts.menu_fleet_rental_contracts
+msgid "Contracts"
+msgstr "العقود"
+
+#. module: fleet_rental_contracts
+#: model:ir.ui.menu,name:fleet_rental_contracts.menu_fleet_rental_damage
+msgid "Damages"
+msgstr "الأضرار"
+
+#. module: fleet_rental_contracts
+#: model:ir.ui.menu,name:fleet_rental_contracts.menu_fleet_rental_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: fleet_rental_contracts
+#: model:ir.ui.menu,name:fleet_rental_contracts.menu_fleet_rental_branch
+msgid "Branches"
+msgstr "الفروع"
+
+#. module: fleet_rental_contracts
+#: model:ir.actions.act_window,name:fleet_rental_contracts.action_fleet_rental_contract
+msgid "Rental Contracts"
+msgstr "عقود الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.actions.act_window,name:fleet_rental_contracts.action_fleet_rental_branch
+msgid "Rental Branches"
+msgstr "فروع التأجير"
+
+#. module: fleet_rental_contracts
+#: model:ir.actions.act_window,name:fleet_rental_contracts.action_fleet_rental_damage
+msgid "Damage Records"
+msgstr "سجلات الأضرار"
+
+#. module: fleet_rental_contracts
+#: model:ir.actions.report,name:fleet_rental_contracts.action_report_rental_contract
+msgid "Rental Contract"
+msgstr "عقد إيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__name
+msgid "Contract Reference"
+msgstr "مرجع العقد"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__partner_id
+msgid "Customer"
+msgstr "العميل"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__driver_name
+msgid "Driver Name"
+msgstr "اسم السائق"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__driver_license
+msgid "Driver License No."
+msgstr "رقم رخصة القيادة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__vehicle_id
+msgid "Vehicle"
+msgstr "المركبة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__branch_id
+msgid "Rental Branch"
+msgstr "فرع التأجير"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__date_start
+msgid "Rental Start"
+msgstr "بداية الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__date_end
+msgid "Rental End"
+msgstr "نهاية الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__daily_rate
+msgid "Daily Rate"
+msgstr "الأجر اليومي"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__rental_days
+msgid "Rental Days"
+msgstr "أيام الإيجار"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__total_amount
+msgid "Total Amount"
+msgstr "المبلغ الإجمالي"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__state
+msgid "Status"
+msgstr "الحالة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_contract__notes
+msgid "Notes"
+msgstr "ملاحظات"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.contract,state:0
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.contract,state:0
+msgid "Confirmed"
+msgstr "مؤكد"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.contract,state:0
+msgid "Ongoing"
+msgstr "جارٍ"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.contract,state:0
+msgid "Done"
+msgstr "منتهٍ"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.contract,state:0
+msgid "Cancelled"
+msgstr "ملغى"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_branch__name
+msgid "Branch Name"
+msgstr "اسم الفرع"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_branch__street
+msgid "Street"
+msgstr "الشارع"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_branch__city
+msgid "City"
+msgstr "المدينة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_branch__phone
+msgid "Phone"
+msgstr "الهاتف"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_branch__manager_id
+msgid "Branch Manager"
+msgstr "مدير الفرع"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_checklist__name
+msgid "Item"
+msgstr "البند"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_checklist__checked
+msgid "Checked"
+msgstr "تم الفحص"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_checklist__checklist_type
+msgid "Type"
+msgstr "النوع"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.checklist,checklist_type:0
+msgid "Checkout"
+msgstr "تسليم السيارة"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.checklist,checklist_type:0
+msgid "Checkin"
+msgstr "استلام السيارة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_damage__name
+msgid "Description"
+msgstr "الوصف"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_damage__damage_type
+msgid "Damage Type"
+msgstr "نوع الضرر"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_damage__location
+msgid "Location on Vehicle"
+msgstr "موقع الضرر على المركبة"
+
+#. module: fleet_rental_contracts
+#: model:ir.model.fields,field_description:fleet_rental_contracts.field_fleet_rental_damage__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.damage,damage_type:0
+msgid "Scratch"
+msgstr "خدش"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.damage,damage_type:0
+msgid "Dent"
+msgstr "انبعاج"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.damage,damage_type:0
+msgid "Crack"
+msgstr "تشقق"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.damage,damage_type:0
+msgid "Missing Part"
+msgstr "قطعة مفقودة"
+
+#. module: fleet_rental_contracts
+#: selection:fleet.rental.damage,damage_type:0
+msgid "Other"
+msgstr "أخرى"
+
+#. module: fleet_rental_contracts
+#: code:addons/fleet_rental_contracts/models/rental_contract.py:0
+#, python-format
+msgid "New"
+msgstr "جديد"
+
+#. module: fleet_rental_contracts
+#: code:addons/fleet_rental_contracts/models/rental_contract.py:0
+#, python-format
+msgid "Rental end date must be after start date."
+msgstr "يجب أن يكون تاريخ انتهاء الإيجار بعد تاريخ البدء."
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Start Rental"
+msgstr "بدء الإيجار"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Mark as Done"
+msgstr "تعليم كمنتهٍ"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Reset to Draft"
+msgstr "إعادة إلى مسودة"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Customer Information"
+msgstr "معلومات العميل"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Rental Details"
+msgstr "تفاصيل الإيجار"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Pricing"
+msgstr "التسعير"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Checkout Checklist"
+msgstr "قائمة فحص التسليم"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Checkin Checklist"
+msgstr "قائمة فحص الاستلام"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Damages"
+msgstr "الأضرار"
+
+#. module: fleet_rental_contracts
+#. openerp-web
+#: view:fleet.rental.contract:fleet_rental_contracts.view_fleet_rental_contract_form
+msgid "Create your first rental contract"
+msgstr "أنشئ عقد إيجارك الأول"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Rental Contract"
+msgstr "عقد إيجار"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Contract Reference:"
+msgstr "مرجع العقد:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Customer Information"
+msgstr "معلومات العميل"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Customer:"
+msgstr "العميل:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Driver:"
+msgstr "السائق:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "License No.:"
+msgstr "رقم الرخصة:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Rental Details"
+msgstr "تفاصيل الإيجار"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Vehicle:"
+msgstr "المركبة:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Branch:"
+msgstr "الفرع:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Start Date:"
+msgstr "تاريخ البدء:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "End Date:"
+msgstr "تاريخ الانتهاء:"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Item"
+msgstr "البند"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Customer Signature"
+msgstr "توقيع العميل"
+
+#. module: fleet_rental_contracts
+#. Report
+msgid "Company Representative"
+msgstr "ممثل الشركة"

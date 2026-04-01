@@ -40,6 +40,16 @@
                             <field name="date_end"/>
                         </group>
                     </group>
+                    <group string="Pricing">
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="daily_rate"/>
+                            <field name="rental_days"/>
+                        </group>
+                        <group>
+                            <field name="total_amount" widget="monetary"/>
+                        </group>
+                    </group>
                     <notebook>
                         <page string="Checkout Checklist">
                             <field name="checklist_ids">
@@ -92,6 +102,9 @@
                 <field name="branch_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
+                <field name="rental_days"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="total_amount" widget="monetary"/>
                 <field name="state" widget="badge"
                     decoration-info="state == 'draft'"
                     decoration-warning="state == 'confirmed'"
@@ -125,11 +138,52 @@
         </field>
     </record>
 
+    <!-- Rental Contract Kanban View -->
+    <record id="view_fleet_rental_contract_kanban" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.kanban</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state"/>
+                <field name="currency_id"/>
+                <field name="total_amount"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="fw-bold">
+                                <field name="name"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-user me-1"/><field name="partner_id"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-car me-1"/><field name="vehicle_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <field name="date_start" widget="date"/>
+                                <span> → </span>
+                                <field name="date_end" widget="date"/>
+                            </div>
+                            <div t-if="record.total_amount.raw_value" class="mt-1 fw-bold">
+                                <field name="total_amount" widget="monetary"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <!-- Rental Contract Action -->
     <record id="action_fleet_rental_contract" model="ir.actions.act_window">
         <field name="name">Rental Contracts</field>
         <field name="res_model">fleet.rental.contract</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="search_view_id" ref="view_fleet_rental_contract_search"/>
         <field name="context">{}</field>
         <field name="help" type="html">

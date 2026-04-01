@@ -1,3 +1,5 @@
+import math
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -89,6 +91,27 @@ class FleetRentalContract(models.Model):
         required=True,
         tracking=True,
     )
+    currency_id = fields.Many2one(
+        "res.currency",
+        string="Currency",
+        default=lambda self: self.env.company.currency_id,
+        required=True,
+    )
+    daily_rate = fields.Monetary(
+        string="Daily Rate",
+        currency_field="currency_id",
+    )
+    rental_days = fields.Integer(
+        string="Rental Days",
+        compute="_compute_rental_days",
+        store=True,
+    )
+    total_amount = fields.Monetary(
+        string="Total Amount",
+        compute="_compute_total_amount",
+        store=True,
+        currency_field="currency_id",
+    )
     checklist_ids = fields.One2many(
         "fleet.rental.checklist",
         "contract_id",
@@ -120,6 +143,20 @@ class FleetRentalContract(models.Model):
         copy=False,
     )
     notes = fields.Text(string="Notes")
+
+    @api.depends("date_start", "date_end")
+    def _compute_rental_days(self):
+        for record in self:
+            if record.date_start and record.date_end:
+                delta = record.date_end - record.date_start
+                record.rental_days = max(1, math.ceil(delta.total_seconds() / 86400))
+            else:
+                record.rental_days = 0
+
+    @api.depends("rental_days", "daily_rate")
+    def _compute_total_amount(self):
+        for record in self:
+            record.total_amount = record.rental_days * record.daily_rate
 
     @api.model_create_multi
     def create(self, vals_list):
