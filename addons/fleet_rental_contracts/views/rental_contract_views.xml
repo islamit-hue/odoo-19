@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Rental Plan Tree -->
+    <record id="view_rental_plan_tree" model="ir.ui.view">
+        <field name="name">fleet.rental.plan.tree</field>
+        <field name="model">fleet.rental.plan</field>
+        <field name="arch" type="xml">
+            <list string="Rental Plans">
+                <field name="name"/>
+                <field name="plan_type"/>
+                <field name="rate"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Rental Plan Form -->
+    <record id="view_rental_plan_form" model="ir.ui.view">
+        <field name="name">fleet.rental.plan.form</field>
+        <field name="model">fleet.rental.plan</field>
+        <field name="arch" type="xml">
+            <form string="Rental Plan">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="plan_type"/>
+                        <field name="rate"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Rental Plan Action -->
+    <record id="action_rental_plan" model="ir.actions.act_window">
+        <field name="name">Rental Plans</field>
+        <field name="res_model">fleet.rental.plan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Contract Tree View -->
+    <record id="view_fleet_rental_contract_tree" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.tree</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <list string="Rental Contracts" decoration-success="state == 'returned'" decoration-info="state == 'active'" decoration-warning="state == 'confirmed'" decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <field name="license_plate"/>
+                <field name="branch_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration_days"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Contract Form View -->
+    <record id="view_fleet_rental_contract_form" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.form</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <form string="Rental Contract">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object"
+                            invisible="state != 'draft'"
+                            class="btn-primary"/>
+                    <button name="action_activate" string="Activate (Checkout)" type="object"
+                            invisible="state != 'confirmed'"
+                            class="btn-primary"/>
+                    <button name="action_return" string="Return Vehicle" type="object"
+                            invisible="state != 'active'"
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ('returned', 'cancelled')"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,active,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contract Info">
+                            <field name="partner_id"/>
+                            <field name="vehicle_id"/>
+                            <field name="license_plate"/>
+                            <field name="branch_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Rental Period">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="date_return"/>
+                            <field name="duration_days"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Pricing">
+                            <field name="rental_plan_id"/>
+                            <field name="daily_rate"/>
+                            <field name="total_amount"/>
+                        </group>
+                        <group string="Odometer">
+                            <field name="odometer_out"/>
+                            <field name="odometer_in"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Checkout Checklist" name="checkout">
+                            <field name="checkout_line_ids" context="{'default_checklist_type': 'checkout'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="condition"/>
+                                    <field name="notes"/>
+                                    <field name="checklist_type" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Checkin Checklist" name="checkin">
+                            <field name="checkin_line_ids" context="{'default_checklist_type': 'checkin'}">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="condition"/>
+                                    <field name="notes"/>
+                                    <field name="checklist_type" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Damages" name="damages">
+                            <field name="damage_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="description"/>
+                                    <field name="location"/>
+                                    <field name="severity"/>
+                                    <field name="repair_cost"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sketches" name="sketches">
+                            <group string="Checkout Sketch">
+                                <field name="sketch_out_image" widget="image" class="oe_avatar"/>
+                                <field name="sketch_out_svg" widget="sketch_pad" string="Draw Checkout Sketch"/>
+                            </group>
+                            <group string="Checkin Sketch">
+                                <field name="sketch_in_image" widget="image" class="oe_avatar"/>
+                                <field name="sketch_in_svg" widget="sketch_pad" string="Draw Checkin Sketch"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Add internal notes here..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Contract Search View -->
+    <record id="view_fleet_rental_contract_search" model="ir.ui.view">
+        <field name="name">fleet.rental.contract.search</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="arch" type="xml">
+            <search string="Search Contracts">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <field name="license_plate"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Active" name="active" domain="[('state','=','active')]"/>
+                <filter string="Returned" name="returned" domain="[('state','=','returned')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state','=','cancelled')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
+                    <filter string="Branch" name="group_branch" context="{'group_by': 'branch_id'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Contract Action -->
+    <record id="action_fleet_rental_contract" model="ir.actions.act_window">
+        <field name="name">Rental Contracts</field>
+        <field name="res_model">fleet.rental.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_fleet_rental_contract_search"/>
+    </record>
+
+    <!-- Menu Items under Contracts -->
+    <menuitem id="menu_rental_contract_list"
+              name="All Contracts"
+              parent="menu_fleet_rental_contracts"
+              action="action_fleet_rental_contract"
+              sequence="10"/>
+
+    <menuitem id="menu_rental_plan"
+              name="Rental Plans"
+              parent="menu_fleet_rental_configuration"
+              action="action_rental_plan"
+              sequence="20"/>
+</odoo>

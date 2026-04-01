@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rental_contract_user,fleet.rental.contract user,model_fleet_rental_contract,fleet_rental_contracts.group_rental_user,1,1,1,0
+access_rental_contract_manager,fleet.rental.contract manager,model_fleet_rental_contract,fleet_rental_contracts.group_rental_manager,1,1,1,1
+access_rental_branch_user,rental.branch user,model_rental_branch,fleet_rental_contracts.group_rental_user,1,0,0,0
+access_rental_branch_manager,rental.branch manager,model_rental_branch,fleet_rental_contracts.group_rental_manager,1,1,1,1
+access_rental_checklist_user,fleet.rental.checklist.line user,model_fleet_rental_checklist_line,fleet_rental_contracts.group_rental_user,1,1,1,0
+access_rental_checklist_manager,fleet.rental.checklist.line manager,model_fleet_rental_checklist_line,fleet_rental_contracts.group_rental_manager,1,1,1,1
+access_rental_damage_user,fleet.rental.damage user,model_fleet_rental_damage,fleet_rental_contracts.group_rental_user,1,1,1,0
+access_rental_damage_manager,fleet.rental.damage manager,model_fleet_rental_damage,fleet_rental_contracts.group_rental_manager,1,1,1,1
+access_rental_plan_user,fleet.rental.plan user,model_fleet_rental_plan,fleet_rental_contracts.group_rental_user,1,0,0,0
+access_rental_plan_manager,fleet.rental.plan manager,model_fleet_rental_plan,fleet_rental_contracts.group_rental_manager,1,1,1,1

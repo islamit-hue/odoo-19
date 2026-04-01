@@ -1,1 +1,39 @@
-{"name": "Fleet Rental Contracts","version": "1.0","category": "Rental","summary": "Module for managing car rental contracts.","description": "This module manages the rental contracts for cars, including check-in and check-out checklists.","depends": ["base","sale","fleet"],"data": ["security/ir.model.access.csv","data/rental_data.xml","views/rental_contract_view.xml","views/rental_branch_view.xml","views/asset_view.xml","reports/rental_contract_report.xml"],"installable": true,"application": true,"auto_install": false}
+# -*- coding: utf-8 -*-
+{
+    'name': 'Fleet Rental Contracts',
+    'version': '19.0.1.0.0',
+    'category': 'Fleet',
+    'summary': 'Manage car rental contracts with checklists, damages and sketches',
+    'description': """
+        Fleet Rental Contracts addon for Odoo 19.
+        Features:
+        - Rental contracts with sequence RENT/YEAR/NNNNN
+        - Branch management (single company branches)
+        - Checkout/checkin checklists prefilled from last vehicle contract
+        - Damage tracking
+        - SVG + PNG sketches for vehicle condition
+        - PDF report
+    """,
+    'author': 'islamit-hue',
+    'depends': ['base', 'fleet', 'mail'],
+    'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'data/sequence.xml',
+        'data/rental_plan.xml',
+        'views/rental_branch_views.xml',
+        'views/rental_contract_views.xml',
+        'report/rental_contract_report.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'fleet_rental_contracts/static/src/js/sketch_widget.js',
+            'fleet_rental_contracts/static/src/xml/sketch_widget.xml',
+            'fleet_rental_contracts/static/src/scss/sketch_widget.scss',
+        ],
+    },
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Action -->
+    <record id="action_report_rental_contract" model="ir.actions.report">
+        <field name="name">Rental Contract</field>
+        <field name="model">fleet.rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">fleet_rental_contracts.rental_contract_document</field>
+        <field name="report_file">fleet_rental_contracts.rental_contract_document</field>
+        <field name="binding_model_id" ref="model_fleet_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- QWeb Template -->
+    <template id="rental_contract_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Rental Contract</h2>
+                        <h3 class="text-center" t-field="doc.name"/>
+
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Customer</th>
+                                        <td><span t-field="doc.partner_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Branch</th>
+                                        <td><span t-field="doc.branch_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status</th>
+                                        <td><span t-field="doc.state"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Vehicle</th>
+                                        <td><span t-field="doc.vehicle_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>License Plate</th>
+                                        <td><span t-field="doc.license_plate"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Rental Plan</th>
+                                        <td><span t-field="doc.rental_plan_id"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Checkout Date</th>
+                                        <td><span t-field="doc.date_start"/></td>
+                                        <th>Expected Return</th>
+                                        <td><span t-field="doc.date_end"/></td>
+                                        <th>Duration (Days)</th>
+                                        <td><span t-field="doc.duration_days"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Odometer Out</th>
+                                        <td><span t-field="doc.odometer_out"/> km</td>
+                                        <th>Odometer In</th>
+                                        <td><span t-field="doc.odometer_in"/> km</td>
+                                        <th>Daily Rate</th>
+                                        <td><span t-field="doc.daily_rate"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5">Total Amount</th>
+                                        <td><strong><span t-field="doc.total_amount"/></strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <t t-if="doc.checkout_line_ids">
+                            <h4 class="mt-4">Checkout Checklist</h4>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Condition</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.checkout_line_ids" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.condition"/></td>
+                                            <td><t t-esc="line.notes or ''"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="doc.checkin_line_ids">
+                            <h4 class="mt-4">Checkin Checklist</h4>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Condition</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.checkin_line_ids" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.condition"/></td>
+                                            <td><t t-esc="line.notes or ''"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="doc.damage_ids">
+                            <h4 class="mt-4">Damages</h4>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Location</th>
+                                        <th>Severity</th>
+                                        <th>Est. Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.damage_ids" t-as="dmg">
+                                        <tr>
+                                            <td><t t-esc="dmg.date"/></td>
+                                            <td><t t-esc="dmg.description"/></td>
+                                            <td><t t-esc="dmg.location or ''"/></td>
+                                            <td><t t-esc="dmg.severity"/></td>
+                                            <td><t t-esc="dmg.repair_cost"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <t t-if="doc.sketch_out_image">
+                            <h4 class="mt-4">Checkout Sketch</h4>
+                            <img t-att-src="'data:image/png;base64,' + doc.sketch_out_image.decode('utf-8') if doc.sketch_out_image else ''" style="max-width:100%; border:1px solid #ccc;"/>
+                        </t>
+
+                        <t t-if="doc.sketch_in_image">
+                            <h4 class="mt-4">Checkin Sketch</h4>
+                            <img t-att-src="'data:image/png;base64,' + doc.sketch_in_image.decode('utf-8') if doc.sketch_in_image else ''" style="max-width:100%; border:1px solid #ccc;"/>
+                        </t>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid #000; width:80%; margin: 0 auto; padding-top:5px;">
+                                    Customer Signature
+                                </div>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid #000; width:80%; margin: 0 auto; padding-top:5px;">
+                                    Authorized Signature
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
