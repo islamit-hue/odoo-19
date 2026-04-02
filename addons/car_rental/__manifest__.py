@@ -1,0 +1,21 @@
+{
+    'name': 'Car Rental',
+    'version': '19.0.1.0.0',
+    'category': 'Rental',
+    'summary': 'إدارة عقود تأجير السيارات',
+    'description': 'وحدة متكاملة لإدارة السيارات، العملاء، وعقود التأجير',
+    'author': 'Your Name',
+    'depends': ['base', 'sale', 'fleet', 'account'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/rental_data.xml',
+        'views/rental_car_view.xml',
+        'views/rental_contract_view.xml',
+        'views/menus.xml',
+        'reports/rental_contract_report.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root menu -->
+    <menuitem id="menu_car_rental_root"
+              name="تأجير السيارات"
+              sequence="10"
+              web_icon="car_rental,static/description/icon.png"/>
+
+    <!-- Cars sub-menu -->
+    <menuitem id="menu_rental_cars"
+              name="السيارات"
+              parent="menu_car_rental_root"
+              action="action_rental_car"
+              sequence="10"/>
+
+    <!-- Contracts sub-menu -->
+    <menuitem id="menu_rental_contracts"
+              name="عقود التأجير"
+              parent="menu_car_rental_root"
+              action="action_rental_contract"
+              sequence="20"/>
+</odoo>

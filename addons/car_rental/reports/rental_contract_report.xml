@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report action bound to rental.contract model -->
+    <record id="action_report_rental_contract" model="ir.actions.report">
+        <field name="name">عقد التأجير</field>
+        <field name="model">rental.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">car_rental.report_rental_contract_template</field>
+        <field name="binding_model_id" ref="model_rental_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report template -->
+    <template id="report_rental_contract_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 style="text-align:center;">عقد تأجير سيارة</h2>
+                        <hr/>
+                        <table class="table table-bordered" style="width:100%;">
+                            <tr>
+                                <th>رقم العقد</th>
+                                <td><t t-esc="doc.name"/></td>
+                                <th>الحالة</th>
+                                <td><t t-esc="dict(doc.fields_get(['state'])['state']['selection'])[doc.state]"/></td>
+                            </tr>
+                            <tr>
+                                <th>العميل</th>
+                                <td><t t-esc="doc.customer_id.name"/></td>
+                                <th>السيارة</th>
+                                <td><t t-esc="doc.car_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>تاريخ الاستلام</th>
+                                <td><t t-esc="doc.date_from"/></td>
+                                <th>تاريخ التسليم</th>
+                                <td><t t-esc="doc.date_to"/></td>
+                            </tr>
+                            <tr>
+                                <th>عدد الأيام</th>
+                                <td><t t-esc="doc.total_days"/></td>
+                                <th>المبلغ الإجمالي</th>
+                                <td><t t-esc="doc.total_amount"/></td>
+                            </tr>
+                        </table>
+                        <t t-if="doc.note">
+                            <h4>ملاحظات:</h4>
+                            <p><t t-esc="doc.note"/></p>
+                        </t>
+                        <br/>
+                        <div style="margin-top:60px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:50%; text-align:center;">
+                                        <p>توقيع العميل</p>
+                                        <br/><br/>
+                                        <p>___________________</p>
+                                        <p><t t-esc="doc.customer_id.name"/></p>
+                                    </td>
+                                    <td style="width:50%; text-align:center;">
+                                        <p>توقيع الشركة</p>
+                                        <br/><br/>
+                                        <p>___________________</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
