@@ -28,14 +28,14 @@ class RentalContract(models.Model):
     def _compute_days(self):
         for rec in self:
             if rec.date_from and rec.date_to:
-                rec.total_days = (rec.date_to - rec.date_from).days
+                rec.total_days = max(0, (rec.date_to - rec.date_from).days)
             else:
                 rec.total_days = 0
 
     @api.depends('total_days', 'car_id.daily_rate')
     def _compute_amount(self):
         for rec in self:
-            rec.total_amount = rec.total_days * rec.car_id.daily_rate
+            rec.total_amount = rec.total_days * rec.car_id.daily_rate if rec.car_id else 0.0
 
     @api.model_create_multi
     def create(self, vals_list):
